@@ -41,8 +41,9 @@ export const tokenExpireError = (dispatch, errorMessage) => {
   const role = localStorage.getItem('role');
   if (errorMessage === 'TOKEN_EXPIRED') {
     dispatch({
-      type: 'Logout',
+      type: 'LOGOUT',
     });
+
     window.location.href = '/' + role + '/login';
   }
 };
@@ -52,10 +53,12 @@ const AuthProvider = ({ children }) => {
 
   React.useEffect(() => {
     //TODO
-    // const status = sdk.check('admin');
-    // if (status === 200) {
-    //   console.log(state.token);
-    // } else console.log('hi');
+    const status = sdk.check('admin');
+    if (status === 200) {
+      return;
+    } else if (localStorage.getItem('role')) {
+      tokenExpireError(dispatch, 'TOKEN_EXPIRED');
+    } else return;
   }, []);
 
   return (

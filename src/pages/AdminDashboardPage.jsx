@@ -9,10 +9,14 @@ import { Table } from 'antd';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../authContext';
 const type = 'DragableBodyRow';
 
 const AdminDashboardPage = () => {
   let sdk = new MkdSDK();
+  const navigate = useNavigate();
+  const { dispatch } = React.useContext(AuthContext);
   const [dataLoad, setDataLoad] = useState({});
   const [dataList, setDataList] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
@@ -105,6 +109,9 @@ const AdminDashboardPage = () => {
           title: 'Photo',
           dataIndex: 'photo',
           id: 'photo',
+          render: (text, record) => (
+            <img alt={record.username} src={record.photo} />
+          ),
         },
         {
           title: 'Title',
@@ -178,7 +185,15 @@ const AdminDashboardPage = () => {
             <span>
               <FiLogOut />
             </span>
-            <span>Logout </span>
+
+            <span
+              onClick={() => {
+                dispatch({ type: 'LOGOUT' });
+                navigate('/admin/login');
+              }}
+            >
+              Logout{' '}
+            </span>
           </button>
         </div>
 
