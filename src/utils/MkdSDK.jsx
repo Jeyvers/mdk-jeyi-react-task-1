@@ -103,6 +103,7 @@ export default function MkdSDK() {
         if (paginateResult.status === 403) {
           throw new Error(jsonPaginate.message);
         }
+
         return jsonPaginate;
       default:
         break;
@@ -113,7 +114,6 @@ export default function MkdSDK() {
     //TODO
     const path = `${this._baseurl + '/v2/api/lambda/check'}`;
     const body = { role };
-    console.log(localStorage.getItem('token'));
     const authToken = await this._axios
       .post(path, body, {
         headers: {
@@ -122,7 +122,7 @@ export default function MkdSDK() {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
       })
-      .then((res) => console.log(res.data))
+      .then((res) => res.status)
       .catch((err) => {
         throw err.error;
       });

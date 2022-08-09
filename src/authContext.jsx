@@ -52,7 +52,10 @@ const AuthProvider = ({ children }) => {
 
   React.useEffect(() => {
     //TODO
-    sdk.check('admin');
+    // const status = sdk.check('admin');
+    // if (status === 200) {
+    //   console.log(state.token);
+    // } else console.log('hi');
   }, []);
 
   return (
