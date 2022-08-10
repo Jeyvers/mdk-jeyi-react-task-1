@@ -181,16 +181,16 @@ const AdminDashboardPage = () => {
       <section className='w-full flex flex-col p-6 items-center min-h-screen bg-black text-white py-4 px-12 gap-8'>
         <div className='w-full flex  justify-between p-2 '>
           <p className='text-5xl'>APP</p>
-          <button className='bg-teal-800 px-12 rounded-2xl flex gap-2 items-center'>
+          <button onClick={() => {
+                dispatch({ type: 'LOGOUT' });
+                navigate('/admin/login');
+              }} className='bg-teal-800 px-12 rounded-2xl flex gap-2 py-0 items-center'>
             <span>
               <FiLogOut />
             </span>
 
             <span
-              onClick={() => {
-                dispatch({ type: 'LOGOUT' });
-                navigate('/admin/login');
-              }}
+              
             >
               Logout{' '}
             </span>
